@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_131" class="java.beans.XMLDecoder">
+ <object class="solver.PlanSolution" id="PlanSolution0">
+  <void property="actions">
+   <void method="add">
+    <string>MoveBox</string>
+   </void>
+   <void method="add">
+    <string>MoveLeft</string>
+   </void>
+   <void method="add">
+    <string>MoveLeft</string>
+   </void>
+   <void method="add">
+    <string>PushDown</string>
+   </void>
+  </void>
+ </object>
+</java>
