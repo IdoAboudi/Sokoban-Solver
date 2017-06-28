@@ -16,7 +16,11 @@ import strips.Clause;
 import strips.Plannable;
 import strips.Predicate;
 
-
+/**
+ * Object adapter for the Level class. supplies the required information a plan problem needs.
+ * @author Or Priesender
+ *
+ */
 public class PlannableLevel implements Plannable {
 	
 	Level lvl;
@@ -33,10 +37,11 @@ public class PlannableLevel implements Plannable {
 	}
 
 
+	/**
+	 * Returns a clause containing the predicates that describe the current level situation.
+	 */
 	@Override
 	public Clause getKnowledgeBase() {
-		
-		
 		if(kb!=null)
 			return kb;
 		else kb = new Clause(null);
@@ -69,6 +74,9 @@ public class PlannableLevel implements Plannable {
 		return kb;
 	}
 
+	/**
+	 * Returns a clause containing predicates needed to be fulfilled in order to complete the problem.
+	 */
 	@Override
 	public Clause getGoal() {
 		Clause goal = new Clause(null);
@@ -83,6 +91,9 @@ public class PlannableLevel implements Plannable {
 		return goal;
 	}
 
+	/**
+	 * Returns a list of actions which their effects can satisfy the given predicate.
+	 */
 	@Override
 	public Set<Action> getSatisfyingActions(Predicate p) {
 		
@@ -105,6 +116,11 @@ public class PlannableLevel implements Plannable {
 		return actions;
 	}
 
+	/**
+	 * Builds a LevelObject map from the knowledge base.
+	 * @param map current level map
+	 * @return a level object map
+	 */
 	private LevelObject[][] buildMapFromKB(LevelObject[][] map) {
 		LevelObject[][] newMap = new LevelObject[map.length][];
 		for(int i =0 ; i< map.length ; i++){
@@ -132,19 +148,9 @@ public class PlannableLevel implements Plannable {
 		return newMap;
 	}
 
-
-	private boolean boxOnTarget(Clause knowledgeBase,Predicate box) {
-		for(Predicate pr : knowledgeBase.getPredicates()){
-			if(pr.getType().equals("TargetAt")){
-				if(box.getValue().equals(pr.getValue())){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
-
+	/**
+	 * Choose the most fitting action returned from getSatisfyingActions.
+	 */
 	@Override
 	public Action getSatisfyingAction(Predicate p) {
 		Set<Action> actions = this.getSatisfyingActions(p);
@@ -165,6 +171,11 @@ public class PlannableLevel implements Plannable {
 		return chosen;
 	}
 
+	/**
+	 * Get a box position by its ID.
+	 * @param id
+	 * @return
+	 */
 	private String boxPositionById(String id) {
 		if(kb!=null){
 			for(Predicate p : kb.getPredicates()){
@@ -177,6 +188,13 @@ public class PlannableLevel implements Plannable {
 		return null;
 	}
 	
+	/**
+	 * Calculate the distance between two points. 
+	 * being used to choose the most fitting action for a predicate.
+	 * @param src source position
+	 * @param dst destination position
+	 * @return distance value
+	 */
 	private int distance(String src,String dst){
 		String[] srcArr = src.split(",");
 		String[] dstArr = dst.split(",");

@@ -2,6 +2,11 @@ package solver.strips.sokspecific;
 
 import strips.Predicate;
 
+/**
+ * This predicate defines a target position
+ * @author Or Priesender
+ *
+ */
 public class TargetPredicate extends SokPredicate {
 
 	public TargetPredicate( String id, String value) {
@@ -10,7 +15,6 @@ public class TargetPredicate extends SokPredicate {
 
 	@Override
 	public boolean satisfies(Predicate p) {
-		//TODO: check
 		if(p.getType().equals("ClearAt")){
 			return (this.value.equals(p.getValue()));
 		}

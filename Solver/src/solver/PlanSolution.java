@@ -6,6 +6,11 @@ import java.util.List;
 
 import strips.Action;
 
+/**
+ * A bean defining a plan solution as a list of actions.
+ * @author Or Priesender
+ *
+ */
 public class PlanSolution implements Serializable{
 
 	List<String> actions = new ArrayList<>();

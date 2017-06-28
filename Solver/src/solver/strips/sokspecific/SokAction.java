@@ -15,6 +15,9 @@ public class SokAction extends strips.Action{
 		
 	}
 	
+	/**
+	 * reverse the action list to be in the right order.
+	 */
 	@Override
 	public List<Action> getMiniActions() {
 		if(super.getMiniActions() == null)

@@ -6,6 +6,11 @@ import sharedSearch.SearchAction;
 import strips.Action;
 import strips.Predicate;
 
+/**
+ * A sokoban predicate that has certain different rules then other predicates.
+ * @author Or Priesender
+ *
+ */
 public class SokPredicate extends Predicate {
 	
 	public List<Action> miniActions = new ArrayList<>();
@@ -15,6 +20,9 @@ public class SokPredicate extends Predicate {
 		
 	}
 	
+	/**
+	 * Check if the given predicate contradicts this predicate.
+	 */
 	@Override
 	public boolean contradicts(Predicate p) {
 		return super.contradicts(p) || (!id.equals(p.getId()) && value.equals(p.getValue())); 

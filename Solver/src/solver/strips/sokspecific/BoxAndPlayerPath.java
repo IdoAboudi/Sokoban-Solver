@@ -13,6 +13,13 @@ import solver.search.sokspecific.BoxPathSearchable;
 import solver.search.sokspecific.MyBFS;
 import solver.search.sokspecific.PlayerPathSearchable;
 
+/**
+ * Implementation of the class SokPredicate.
+ * This predicate returns true if there is a path for 
+ * a player pushing a box from a source to a destination.
+ * @author Or Priesender
+ *
+ */
 public class BoxAndPlayerPath extends SokPredicate {
 
 	BoxPathSearchable boxSearch;
@@ -24,6 +31,13 @@ public class BoxAndPlayerPath extends SokPredicate {
 	List<SearchAction> allActions;
 	boolean satisfied = false;
 
+	/**
+	 * Initialize parameters
+	 * @param id which box is it
+	 * @param src initial box position
+	 * @param dst wanted box position
+	 * @param map current level map
+	 */
 	public BoxAndPlayerPath(String id,String src,String dst,LevelObject[][] map) {
 		super("BoxAndPlayerPath", id, dst);
 		boxSearch = new BoxPathSearchable(stringToPoint(src), stringToPoint(dst), map);
@@ -35,11 +49,20 @@ public class BoxAndPlayerPath extends SokPredicate {
 		selfSatisfied = true;
 	}
 
+	/**
+	 * Translates a string to Point.
+	 * @param str string to be translated
+	 * @return
+	 */
 	private Point stringToPoint(String str){
 		String[] s = str.split(",");
 		return new Point(Integer.parseInt(s[0]),Integer.parseInt(s[1]));
 	}
 
+
+	/**
+	 * Check if this predicate is satisfied.
+	 */
 	@Override
 	public boolean isSatisfied(){
 		if(!satisfied){
@@ -62,6 +85,10 @@ public class BoxAndPlayerPath extends SokPredicate {
 
 	}
 
+	/**
+	 * Gets the last box push needed to complete this predicate.
+	 * @return
+	 */
 	public SearchAction getLastPush(){
 		if(isSatisfied())
 			return lastPush;

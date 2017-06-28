@@ -5,6 +5,11 @@ import java.io.OutputStream;
 
 import solver.PlanSolution;
 
+/**
+ * Save's a level solution in XML format.
+ * @author Or Priesender
+ *
+ */
 public class XMLSolutionSaver extends SolutionSaver{
 
 	@Override

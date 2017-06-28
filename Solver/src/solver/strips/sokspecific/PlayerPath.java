@@ -6,11 +6,23 @@ import searcher.Searcher;
 import sharedSearch.SearchAction;
 import sharedSearch.Solution;
 
+/**
+ * This predicate returns true if there is a path for a player alone from source to destination.
+ * @author Or Priesender
+ *
+ */
 public class PlayerPath extends SokPredicate {
 	
 	private Searcher<Point> searcher = null;
 	private Searchable<Point> searchable = null;
 
+	/**
+	 * Initialize data members.
+	 * @param id player id
+	 * @param value source position
+	 * @param searcher a searcher to search the level
+	 * @param searchable a searchable level
+	 */
 	public PlayerPath(String id, String value,Searcher<Point> searcher,Searchable<Point>searchable) {
 		super("PlayerPath", id, value);
 		this.searchable = searchable;

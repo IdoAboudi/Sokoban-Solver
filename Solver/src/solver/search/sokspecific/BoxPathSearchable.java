@@ -1,6 +1,7 @@
 package solver.search.sokspecific;
 
 import java.util.HashMap;
+
 import model.data.level.Box;
 import model.data.level.LevelObject;
 import model.data.level.Player;
@@ -11,6 +12,12 @@ import sharedSearch.SearchAction;
 import sharedSearch.Solution;
 import sharedSearch.State;
 
+/**
+ * Supplies all required information for a search algorithm to 
+ * search for a box path.
+ * @author Or Priesender
+ *
+ */
 public class BoxPathSearchable implements Searchable<Point> {
 
 	private Point dst;
@@ -22,25 +29,39 @@ public class BoxPathSearchable implements Searchable<Point> {
 	private LevelObject savedObjectForBox;
 	private LevelObject savedObjectForPlayer;
 
+	/**
+	 * Initialize data members
+	 * @param src source position
+	 * @param dst destination position
+	 * @param map current level map
+	 */
 	public BoxPathSearchable(Point src, Point dst,LevelObject[][] map) {
 		this.src = src;
 		this.dst = dst;
 		this.map = map;
 		playerSrc = getPlayerSource();
-		//at first the player is in its original position
 		newPlayerPos = playerSrc;
 	}
 
+	/**
+	 * Supplies the inital state of the level.
+	 */
 	@Override
 	public State<Point> getInitialState() {
 		return new State<Point>(src);
 	}
 
+	/**
+	 * Supplies the goal state which is the box's destination.
+	 */
 	@Override
 	public State<Point> getGoalState() {
 		return new State<Point>(dst);
 	}
 
+	/**
+	 * Supplies all possible moves for a box, including a place for the player to push it.
+	 */
 	@Override
 	public HashMap<SearchAction, State<Point>> getAllPossibleMoves(State<Point> current) {
 		this.currentPos = current.getState();
@@ -109,6 +130,9 @@ public class BoxPathSearchable implements Searchable<Point> {
 		return possibles;
 	}
 
+	/**
+	 * Brings the map back to what it was.
+	 */
 	private void returnMapToNormal() {
 		map[newPlayerPos.getY()][newPlayerPos.getX()] = savedObjectForPlayer;
 		map[currentPos.getY()][currentPos.getX()] = savedObjectForBox;
@@ -117,6 +141,10 @@ public class BoxPathSearchable implements Searchable<Point> {
 		map[playerSrc.getY()][playerSrc.getX()] = new Player(playerSrc);
 	}
 
+	/**
+	 * Set the map to fit the current state of the search algorithm.
+	 * @param current
+	 */
 	private void updateMap(State<Point> current) {
 
 		this.currentPos = current.getState();
@@ -132,6 +160,12 @@ public class BoxPathSearchable implements Searchable<Point> {
 	}
 
 
+	/**
+	 * Calculate the player's position according to the box position
+	 * @param current current state the algorithm is in
+	 * @param direction direction of movement
+	 * @return
+	 */
 	private Point getPlayerDest(State<Point> current, String direction) {
 		int x = current.getState().getX();
 		int y = current.getState().getY();
